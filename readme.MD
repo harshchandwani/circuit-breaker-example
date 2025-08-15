@@ -24,3 +24,11 @@ A **Circuit Breaker** works like an electrical fuse:
 ---
 
 ## 🏗 Project Structure
+
+circuit-breaker-demo/
+│── service-a/
+│ ├── index.js
+│ ├── circuitBreaker.js
+│── service-b/
+│ ├── index.js
+│── package.json
