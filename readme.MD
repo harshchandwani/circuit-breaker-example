@@ -32,3 +32,62 @@ circuit-breaker-demo/
 │── service-b/
 │ ├── index.js
 │── package.json
+
+---
+
+## 🚀 How to Run & Test
+
+### 1. Clone the repository
+
+```sh
+git clone https://github.com/yourusername/circuit-breaker-demo.git
+cd circuit-breaker-demo
+```
+
+### 2. Start Service B (Flaky Service)
+
+```sh
+cd service-b
+npm init -y
+npm install express
+node index.js
+```
+
+Service B runs on: [http://localhost:3001](http://localhost:3001)
+
+### 3. Start Service A (With Circuit Breaker)
+
+Open a new terminal:
+
+```sh
+cd service-a
+npm init -y
+npm install express axios
+node index.js
+```
+
+Service A runs on: [http://localhost:3000](http://localhost:3000)
+
+### 4. Call Service A endpoint
+
+```sh
+curl http://localhost:3000/fetch-data
+```
+
+---
+
+## 🧪 Expected Behavior
+
+- **Initially**, requests will sometimes succeed, sometimes fail.
+- **After 3 consecutive failures**, the breaker will trip and state will become **OPEN**.
+- While **OPEN**, all requests fail instantly with:
+  ```json
+  {
+    "state": "OPEN",
+    "error": "Circuit breaker is OPEN"
+  }
+  ```
+- **Wait 5 seconds**, the breaker goes **HALF-OPEN**.
+- If **2 consecutive successes** occur, breaker returns to **CLOSED**.
+
+---
